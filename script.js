@@ -13,22 +13,27 @@ function setPiece() {
     this.style.color = "#171614";
     this.textContent = playerOneMark;
     gameBoard.push(playerOneMark);
-    player = !player;
+    playerOne = false;
+    playerTwo = true;
   } else {
     this.textContent = playerTwoMark;
     gameBoard.push(playerTwoMark);
     this.style.color = "#eddfef";
-   player = !player;
+    playerOne = true;
+    playerTwo = false;
   }
   determineWinner();
 
   setTurn();
 }
 
-let player = playerOne ? playerOneMark : playerTwoMark;
+let mark;
+
+
 
 function setTurn() {
-  document.querySelector(".turn").textContent = `Player ${player}'s turn`;
+  document.querySelector(".turn").textContent = `Player ${mark}'s turn`;
+  mark = playerOne ? playerOneMark : playerTwoMark;
 }
 
 const winningConditions = [
@@ -44,7 +49,7 @@ const winningConditions = [
 
 function determineWinner() {
   let roundWon = false;
-  for (let i = 0; i < winningConditions.length; i++) {
+  for (let i = 0; i <= 7; i++) {
     const winCondition = winningConditions[i];
     const a = gameBoard[winCondition[0]];
     const b = gameBoard[winCondition[1]];
@@ -52,15 +57,17 @@ function determineWinner() {
     if (!a || !b || !c) {
       continue;
     } else {
-        console.log(winCondition)
       if (a === b && b === c) {
         roundWon = true;
-        console.log(player + " won");
+        console.log(a + ' ' +b+' '+c+ ' - ' + i)
+        console.log(roundWon);
         break;
       }
     }
   }
 }
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
   setTurn();
