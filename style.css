@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
 html,
 body {
   margin: 0;
   padding: 0%;
   box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
 }
 
 body {
@@ -28,5 +31,13 @@ body {
 .tile{
     cursor: pointer;
     background-color: #407076;
+    color: #171614;
+    font-size: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-171614
+
+.mark{
+    color: #171614;
+}

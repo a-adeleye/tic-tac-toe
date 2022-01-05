@@ -1,1 +1,14 @@
-const gameBoard = ['X','X','O','X','O'];
+const gameBoard = ["X", "X", "O", "X", "O"];
+
+let playerOneMark = "X";
+let playerTwoMark = "O";
+
+let tiles = document.querySelectorAll(".tile");
+
+tiles.forEach((tile) => tile.addEventListener("click", markTile));
+
+function markTile() {
+  if (this.textContent) return;
+  this.textContent = "X";
+  console.log("tile");
+}
