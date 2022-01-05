@@ -1,0 +1,32 @@
+html,
+body {
+  margin: 0;
+  padding: 0%;
+  box-sizing: border-box;
+}
+
+body {
+  background: #407076;
+  height: 100vh;
+}
+
+.gameboard {
+  width: 33%;
+  min-width: 360px;
+  height: 60%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #eddfef;
+  gap: 10px;
+}
+
+.tile{
+    cursor: pointer;
+    background-color: #407076;
+}
+171614
