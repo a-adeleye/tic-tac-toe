@@ -1,16 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
 
 html,
 body {
   margin: 0;
   padding: 0%;
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
   background: #407076;
   height: 100vh;
+}
+
+.scoreboard {
+  position: absolute;
+  top: 0;
+  left: 15%;
+  width: 70%;
+  height: 80px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 2px solid #eddfef;
+  margin: 20px auto;
+}
+
+.score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.turn {
+  color: white;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .gameboard {
@@ -21,23 +47,27 @@ body {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #eddfef;
   gap: 10px;
 }
 
-.tile{
-    cursor: pointer;
-    background-color: #407076;
-    color: #171614;
-    font-size: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.tile {
+  cursor: pointer;
+  background-color: #407076;
+  color: #171614;
+  font-size: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.mark{
-    color: #171614;
+.mark {
+  color: #171614;
+}
+
+.not-allowed{
+    cursor: not-allowed;
 }
