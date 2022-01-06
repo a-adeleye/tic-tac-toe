@@ -114,7 +114,7 @@ const gamePlay = (() => {
     tiles.forEach((tile) =>
       tile.addEventListener("click", play, { once: true })
     );
-    el.parentNode.removeChild(el);
+    if(el) el.parentNode.removeChild(el);
     currentPlayer = x;
     color = dark;
   };
@@ -146,13 +146,17 @@ const gamePlay = (() => {
     let comp = document.getElementById("comp");
 
     if (human.classList.contains("active")) {
+        restartGame();
       human.classList.remove("active");
       comp.classList.add("active");
       humanMode = false;
+      updateTurn();
     } else if (comp.classList.contains("active")) {
+        restartGame();
       comp.classList.remove("active");
       human.classList.add("active");
      humanMode = true;
+     updateTurn()
     }
   };
 
