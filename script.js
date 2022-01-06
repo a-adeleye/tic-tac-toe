@@ -73,7 +73,11 @@ const endGame = () => {
     winningMessage.classList.add('winner');
     winningMessage.textContent = `${currentPlayer} wins!`
     if(winner){
-        gameOver.insertBefore(winningMessage,gameOver[0]);
+        gameOver.insertBefore(winningMessage,restart);
+        gameOver.classList.add('show');
+    } if(!winner && gameBoard.length == 9 && !gameBoard.includes("")){
+        winningMessage.textContent = `It's a tie`
+        gameOver.insertBefore(winningMessage,restart);
         gameOver.classList.add('show');
     }
 }
