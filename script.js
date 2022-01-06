@@ -1,26 +1,29 @@
-const gameBoard = ["","","","","","","","",""];
+let gameBoard = ["", "", "", "", "", "", "", "", ""];
 
 let x = "X";
 let o = "O";
 
 const winningConditions = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
+const gameOver = document.querySelector('.endGame');
+const restart = document.querySelector('#restart');
 
 const gamePlay = (() => {
   let currentPlayer = o;
+  let winner = '';
   const dark = "#171614";
   const light = "#eddfef";
 
   const changeTurn = () => {
-    console.log(currentPlayer);
     currentPlayer === x
       ? ((currentPlayer = o), (color = light))
       : ((currentPlayer = x), (color = dark));
@@ -45,26 +48,67 @@ const gamePlay = (() => {
     target = e.target;
     index = tiles.indexOf(target);
     gameBoard[index] = currentPlayer;
-    console.log(index);
   };
 
-  const resetGame = () => {
+  const checkWinner = () => {
+      for (let i = 0; i <= 7; i++) {
+        const winCondition = winningConditions[i];
+        const a = gameBoard[winCondition[0]];
+        const b = gameBoard[winCondition[1]];
+        const c = gameBoard[winCondition[2]];
+        if (!a || !b || !c) {
+          continue;
+        } else {
+          if (a === b && b === c) {
+            winner = currentPlayer;
+            console.log(winner);
+            break;
+          }
+        }
+      }
+  };
 
-  }
+const endGame = () => {
+    let winningMessage = document.createElement('p');
+    winningMessage.classList.add('winner');
+    winningMessage.textContent = `${currentPlayer} wins!`
+    if(winner){
+        gameOver.insertBefore(winningMessage,gameOver[0]);
+        gameOver.classList.add('show');
+    }
+}
 
-  return { changeTurn, updateTurn, markBoard, updateGameBoard, resetGame };
+function reset(elem){
+    elem.style.cursor = 'pointer';
+    elem.textContent = '';
+}
+
+  const restartGame = () => {
+    let el = document.querySelector('.winner');
+    gameBoard = ["", "", "", "", "", "", "", "", ""];
+    tiles.forEach(tile => reset(tile));
+    gameOver.classList.replace('show', 'hide');
+    winner = false;
+    tiles.forEach((tile) => tile.addEventListener("click", play, { once: true }));
+    el.parentNode.removeChild(el);
+  };
+
+  return { changeTurn, updateTurn, markBoard, updateGameBoard, checkWinner, endGame, restartGame };
 })();
 
 const play = () => {
   gamePlay.updateTurn();
   gamePlay.markBoard();
   gamePlay.updateGameBoard();
+  gamePlay.checkWinner();
+  gamePlay.endGame();
 };
 
 let tiles = Array.from(document.querySelectorAll(".tile"));
 
 document.addEventListener("DOMContentLoaded", () => {
   tiles.forEach((tile) => tile.addEventListener("click", play, { once: true }));
+  restart.addEventListener('click', gamePlay.restartGame);
 });
 
 /* let playerOne = Math.floor(Math.random() * 3) < 2;
@@ -100,25 +144,7 @@ function setTurn() {
 
 
 
-function determineWinner() {
-  let roundWon = false;
-  for (let i = 0; i <= 7; i++) {
-    const winCondition = winningConditions[i];
-    const a = gameBoard[winCondition[0]];
-    const b = gameBoard[winCondition[1]];
-    const c = gameBoard[winCondition[2]];
-    if (!a || !b || !c) {
-      continue;
-    } else {
-      if (a === b && b === c) {
-        roundWon = true;
-        console.log(a + ' ' +b+' '+c+ ' - ' + i)
-        console.log(roundWon);
-        break;
-      }
-    }
-  }
-}
+
 
 
 
