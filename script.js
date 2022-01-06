@@ -1,11 +1,26 @@
 const gameBoard = [];
 
-let playerOneMark = "X";
-let playerTwoMark = "O";
+let x = "X";
+let o = "O";
+
+let currentPlayer = o;
+
+const gamePlay = (() => {
+  
+const changeTurn = () => {
+    console.log(currentPlayer)
+    currentPlayer === x ? currentPlayer = o : currentPlayer = x;
+}
+
+return {changeTurn}
+
+})();
+
+document.addEventListener('click', gamePlay.changeTurn())
 
 let tiles = document.querySelectorAll(".tile");
 
-let playerOne = Math.floor(Math.random() * 3) < 2;
+/* let playerOne = Math.floor(Math.random() * 3) < 2;
 let playerTwo = !playerOne;
 
 function setPiece() {
@@ -75,3 +90,5 @@ document.addEventListener("DOMContentLoaded", () => {
     tile.addEventListener("click", setPiece, { once: true })
   );
 });
+
+*/
