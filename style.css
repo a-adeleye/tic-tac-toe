@@ -20,16 +20,40 @@ body {
   width: 70%;
   height: 80px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   border: 2px solid #eddfef;
   margin: 20px auto;
   font-size: 1.5rem;
+  justify-content: center;
+  align-content: center;
 }
 
 .score {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#mode{
+    color: white;
+    margin-left: 10px;
+}
+
+#mode p{
+margin-left: 10px;
+border: 1px solid grey;
+border-radius: 4px;
+padding: 5px 10px;
+cursor: pointer;
+font-size: 15px;
+}
+
+.active{
+    background: #2d565c;
+}
+
+#mode span:hover{
+    background: #2d565c;
 }
 
 .turn {

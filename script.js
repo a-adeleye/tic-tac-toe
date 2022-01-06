@@ -2,6 +2,7 @@ let gameBoard = ["", "", "", "", "", "", "", "", ""];
 
 let x = "X";
 let o = "O";
+let humanMode = true;
 
 const winningConditions = [
   [0, 1, 2],
@@ -28,6 +29,16 @@ const gamePlay = (() => {
   const changePlayer = () => {
     currentPlayer = x;
     color = dark;
+  };
+
+  const changeTurn = () => {
+    if (currentPlayer === o) {
+      currentPlayer = x;
+      color = dark;
+    } else {
+      currentPlayer = o;
+      color = light;
+    }
   };
 
   const changeComp = () => {
@@ -130,10 +141,26 @@ const gamePlay = (() => {
     else return false;
   };
 
+  const toggleMode = () => {
+    let human = document.getElementById("human");
+    let comp = document.getElementById("comp");
+
+    if (human.classList.contains("active")) {
+      human.classList.remove("active");
+      comp.classList.add("active");
+      humanMode = false;
+    } else if (comp.classList.contains("active")) {
+      comp.classList.remove("active");
+      human.classList.add("active");
+     humanMode = true;
+    }
+  };
+
   return {
     markBoard,
     updateGameBoard,
     changePlayer,
+    changeTurn,
     changeComp,
     updateTurn,
     restartGame,
@@ -141,73 +168,38 @@ const gamePlay = (() => {
     checkWinner,
     endGame,
     roundEnd,
+    toggleMode,
   };
 })();
 
 const play = () => {
-  gamePlay.markBoard();
-  gamePlay.updateGameBoard();
-  //gamePlay.updateTurn();
-  gamePlay.checkWinner();
-  gamePlay.endGame();
-  gamePlay.changeComp();
-  if (!gamePlay.roundEnd()) {
-    gamePlay.computerMove();
+  if (humanMode) {
+    gamePlay.markBoard();
+    gamePlay.updateGameBoard();
     gamePlay.checkWinner();
     gamePlay.endGame();
-    gamePlay.changePlayer();
+    gamePlay.changeTurn();
+    gamePlay.updateTurn();
+  } else {
+    gamePlay.markBoard();
+    gamePlay.updateGameBoard();
+    gamePlay.checkWinner();
+    gamePlay.endGame();
+    gamePlay.changeComp();
+    if (!gamePlay.roundEnd()) {
+      gamePlay.computerMove();
+      gamePlay.checkWinner();
+      gamePlay.endGame();
+      gamePlay.changePlayer();
+    }
   }
 };
 
 let tiles = Array.from(document.querySelectorAll(".tile"));
+let modes = Array.from(document.querySelectorAll("#mode"));
 
 document.addEventListener("DOMContentLoaded", () => {
+  modes.forEach((mode) => mode.addEventListener("click", gamePlay.toggleMode));
   tiles.forEach((tile) => tile.addEventListener("click", play, { once: true }));
   restart.addEventListener("click", gamePlay.restartGame);
 });
-
-/* let playerOne = Math.floor(Math.random() * 3) < 2;
-let playerTwo = !playerOne;
-
-function setPiece() {
-  if (playerOne) {
-    this.style.color = "#171614";
-    this.textContent = playerOneMark;
-    gameBoard.push(playerOneMark);
-    playerOne = false;
-    playerTwo = true;
-  } else {
-    this.textContent = playerTwoMark;
-    gameBoard.push(playerTwoMark);
-    this.style.color = "#eddfef";
-    playerOne = true;
-    playerTwo = false;
-  }
-  determineWinner();
-
-  setTurn();
-}
-
-let mark;
-
-
-
-function setTurn() {
-  
-  mark = playerOne ? playerOneMark : playerTwoMark;
-}
-
-
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-  setTurn();
-  tiles.forEach((tile) =>
-    tile.addEventListener("click", setPiece, { once: true })
-  );
-});
-
-*/

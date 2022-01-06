@@ -9,9 +9,12 @@
   </head>
   <body>
     <div class="scoreboard">
-      <div class="score" id="playerOne"></div>
-      <div class="turn">Player X's turn</div>
-      <div class="score" id="playerTwo"></div>
+      <div class="score" id="mode">
+        <h5>Mode:</h5>
+        <p class="active" id="human">Vs Human</p>
+        <p id="comp">Vs Comp</p>
+      </div>
+      <div class="turn" >Player X's turn</div>
     </div>
     <div class="gameboard">
       <div class="tile"></div>
@@ -25,7 +28,7 @@
       <div class="tile"></div>
     </div>
     <div class="endGame">
-        <button id="restart">Restart</button>
+      <button id="restart">Restart</button>
     </div>
     <script src="script.js"></script>
   </body>
