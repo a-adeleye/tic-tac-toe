@@ -19,7 +19,8 @@ const restart = document.querySelector("#restart");
 
 const gamePlay = (() => {
   let currentPlayer = x;
-  let winner = "";
+  let winner = false;
+  let tie = false;
   const dark = "#171614";
   const light = "#eddfef";
   let color = dark;
@@ -27,12 +28,12 @@ const gamePlay = (() => {
   const changePlayer = () => {
     currentPlayer = x;
     color = dark;
-  }
+  };
 
   const changeComp = () => {
     currentPlayer = o;
     color = light;
-  }
+  };
 
   const updateTurn = () => {
     document.querySelector(
@@ -81,6 +82,7 @@ const gamePlay = (() => {
       gameOver.classList.add("show");
     }
     if (!winner && gameBoard.length == 9 && !gameBoard.includes("")) {
+      tie = true;
       winningMessage.textContent = `It's a tie`;
       gameOver.insertBefore(winningMessage, restart);
       gameOver.classList.add("show");
@@ -124,7 +126,7 @@ const gamePlay = (() => {
   };
 
   const roundEnd = () => {
-    if (winner) return true;
+    if (winner || tie) return true;
     else return false;
   };
 
@@ -138,7 +140,7 @@ const gamePlay = (() => {
     computerMove,
     checkWinner,
     endGame,
-    roundEnd
+    roundEnd,
   };
 })();
 
