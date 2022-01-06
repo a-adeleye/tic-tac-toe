@@ -1,24 +1,71 @@
-const gameBoard = [];
+const gameBoard = ["","","","","","","","",""];
 
 let x = "X";
 let o = "O";
 
-let currentPlayer = o;
+const winningConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
 
 const gamePlay = (() => {
-  
-const changeTurn = () => {
-    console.log(currentPlayer)
-    currentPlayer === x ? currentPlayer = o : currentPlayer = x;
-}
+  let currentPlayer = o;
+  const dark = "#171614";
+  const light = "#eddfef";
 
-return {changeTurn}
+  const changeTurn = () => {
+    console.log(currentPlayer);
+    currentPlayer === x
+      ? ((currentPlayer = o), (color = light))
+      : ((currentPlayer = x), (color = dark));
+  };
 
+  const updateTurn = () => {
+    document.querySelector(
+      ".turn"
+    ).textContent = `Player ${currentPlayer}'s turn`;
+    gamePlay.changeTurn();
+  };
+
+  const markBoard = (e) => {
+    e || (e = window.event);
+    target = e.target;
+    target.style.cssText = `cursor: not-allowed; color: ${color}`;
+    target.textContent = currentPlayer;
+  };
+
+  const updateGameBoard = (e) => {
+    e || (e = window.event);
+    target = e.target;
+    index = tiles.indexOf(target);
+    gameBoard[index] = currentPlayer;
+    console.log(index);
+  };
+
+  const resetGame = () => {
+
+  }
+
+  return { changeTurn, updateTurn, markBoard, updateGameBoard, resetGame };
 })();
 
-document.addEventListener('click', gamePlay.changeTurn())
+const play = () => {
+  gamePlay.updateTurn();
+  gamePlay.markBoard();
+  gamePlay.updateGameBoard();
+};
 
-let tiles = document.querySelectorAll(".tile");
+let tiles = Array.from(document.querySelectorAll(".tile"));
+
+document.addEventListener("DOMContentLoaded", () => {
+  tiles.forEach((tile) => tile.addEventListener("click", play, { once: true }));
+});
 
 /* let playerOne = Math.floor(Math.random() * 3) < 2;
 let playerTwo = !playerOne;
@@ -47,20 +94,11 @@ let mark;
 
 
 function setTurn() {
-  document.querySelector(".turn").textContent = `Player ${mark}'s turn`;
+  
   mark = playerOne ? playerOneMark : playerTwoMark;
 }
 
-const winningConditions = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6],
-];
+
 
 function determineWinner() {
   let roundWon = false;
